@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+   <title>Basic HTML Page</title>
+    <link rel="stylesheet" href="home.css" />
+     </head>
+     <body>
+      <h1>Search Results</h1>
+      <p><%= @query %></p>
+      <ul>
+       <% @listed.each do |line| %>
+          <% if line["id"].include?@query %>
+                <% @search_array << line["id"] %>
+          <% elsif line["synopsis"].include?@query %>
+                <% @search_array << line["id"] %>
+          <%end%>
+       <% end %>
+          <%= @search_array %>
+      </ul>
+    </body>
+

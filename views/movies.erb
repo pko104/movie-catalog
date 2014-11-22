@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+   <title>Basic HTML Page</title>
+    <link rel="stylesheet" href="home.css" />
+     </head>
+     <body>
+      <% if @query %>
+      <h1>Search Results for: <%= @query %></h1>
+      <ul>
+       <% @listed.each do |line| %>
+
+          <% if line["title"].downcase.include?@query.downcase%>
+      <li>
+                 <a href=<%= "/movies/"+line["id"]%>>
+                 <%=line["title"]%></a>
+                 <% @search_array << line["title"] %>
+      </li>
+          <%end%>
+
+          <% if line["synopsis"] == nil %>
+
+          <% elsif line["synopsis"].downcase.include?@query.downcase %>
+
+               <% if !@search_array.include?line["title"]%>
+      <li>
+                  <a href=<%= "/movies/"+line["id"]%>>
+                  <%=line["title"]%></a>
+      </li>
+
+               <%end%>
+
+          <% end %>
+       <% end %>
+
+       <%else%>
+
+      <h1>Movies</h1>
+         <ul>
+
+          <%if @page.to_i > 1%>
+             <a href =<%= "/movies?page=" + "#{(@page.to_i-1)}" %>>
+             <%="Previous Page"%></a>
+             <br>
+          <% end %>
+             <a href =<%= "/movies?page=" + "#{(@page.to_i+1)}" %>>
+             <%="Next Page"%></a>
+             <br></br>
+
+            <form action="/movies" method="get">
+             <label for="query">Search: </label>
+             <input type="text" name="query" id="query" />
+
+             <input type="submit" value="Search" />
+            </form>
+
+    <% sorted_movies = @listed.sort_by {|movie| movie["title"]} %>
+    <% current_page = @page.to_i * 20 - 20 %>
+    <% max_page = 20 * @page.to_i %>
+         <% while (current_page < max_page) do %>
+               <a href=<%= "/movies/"+sorted_movies[current_page]["id"]%>>
+               <%=sorted_movies[current_page]["title"]%> </a>
+               <%current_page+=1%>
+               <br>
+               <%end%>
+               <%@page.to_i + 1%>
+
+          <%end%>
+        </ul>
+
+    </body>

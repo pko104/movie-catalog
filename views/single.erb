@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+   <title>Basic HTML Page</title>
+    <link rel="stylesheet" href="home.css" />
+     </head>
+     <body>
+      <h1><%=@current_movie["id"]%> - <%=@current_movie["title"]%></h1>
+        <ul>
+        Rating:   <%=@current_movie["rating"]%> <br>
+        Year:     <%=@current_movie["year"]%> <br>
+        Genre:    <%=@current_movie["genre"]%> <br>
+        Synopsis: <%=@current_movie["synopsis"]%> <br>
+        Studio:   <%=@current_movie["studio"]%> <br>
+        </ul>
+
+    </body>
